@@ -80,7 +80,7 @@ Example:
 | yMin       | Number | The minimum value for the random image size at the y coordinate | 400                                   |
 | yMax       | Number | The maximum value for the random image size at the y coordinate | 500                                   |
 
-_if it should not be random just let minimum and maximum` be the same value_
+_if you don't want it to be random, just let minimum and maximum be the same value_
 
 ### <ins>characterColor</ins>
 **Name:** characterColor  
