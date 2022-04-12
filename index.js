@@ -11,9 +11,10 @@ client.on('messageCreate', async(message) => {
     if(message.content.startsWith("!captcha")){
 
         //get captcha data
-        let captchaArray = await captcha({length: 5, randomBgColor: '#000000', bgColorDiff: {R: 20, G: 20, B: 20}, decoys: {amount : 40, sizeMin: 10, sizeMax: 25}});// Readm the README.md for more info
-        let solution = captchaArray[0]; //the solution is the first element of the array
-        let image = captchaArray[1];    //the captcha image is the second element of the array
+        let captcha = await createCaptcha({length: 6, bgColor: '#000000', bgColorDiff: {R: 20, G: 20, B: 20}, decoys: {amount : 40, sizeMin: 10, sizeMax: 25}, characters: 'Tomatee', randomCharOrder: false, imageSize: {xMin: 600, xMax: 700, yMin: 400, yMax:500}, characterColor: "#FF0000", lineColor: "#00FF00", decoyColor: "#0000FF"});// Readm the README.md for more info
+        let solution = captcha.solution //the solution is the first element of the array
+        let image = captcha.image;    //the captcha image is the second element of the array
+
 
         //send captcha in the channel
         message.channel.send({files: [image]});
@@ -25,28 +26,36 @@ client.on('messageCreate', async(message) => {
 
 
 //Important functions:
-async function captcha({length = 5, randomBgColor = "#"+randomInt(0,16777215).toString(16), bgColorDiff = {R : 20, G : 20, B : 20}, decoys = {amount : 40, sizeMin: 10, sizeMax: 25}, characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()'}){
+async function createCaptcha({length = 5, bgColor = "#"+randomInt(0,16777215).toString(16), bgColorDiff = {R : 20, G : 20, B : 20}, decoys = {amount : 40, sizeMin: 10, sizeMax: 25}, randomCharOrder = true, characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()', imageSize = {xMin: 600, xMax: 700, yMin: 400, yMax:500}, characterColor = undefined, lineColor = undefined, decoyColor = undefined}) {
 
     var solution = "";
-    for (var i = 0; i < length; i++ ) {
-        solution += characters.charAt(randomInt(0, characters.length - 1));
-    }
+
+    if(randomCharOrder){// check if the order of the provided characters should be random
+        for (var i = 0; i < length; i++ ) {
+            solution += characters.charAt(randomInt(0, characters.length - 1));
+        }
+    }else{ solution = characters} //if not, just use the provided characters
  
     //create canvas
-    const canvas = createCanvas(600, 400);
+    const canvas = createCanvas(randomInt(imageSize.xMin, imageSize.xMax), randomInt(imageSize.yMin, imageSize.yMax));
     const captcha = canvas.getContext('2d')
 
     //Background
-    captcha.fillStyle = randomBgColor; 
+    captcha.fillStyle = bgColor; 
     captcha.fillRect(0, 0, canvas.width, canvas.height);
     var width = canvas.width/length;
 
-    //get random colors for the lines
-    do {
-        lineColor = await randomColor(randomBgColor, captcha.fillStyle, bgColorDiff);
-    } while (lineColor == captcha.fillStyle);
-    if(lineColor != captcha.fillStyle) captcha.strokeStyle = lineColor
-    else return "ERROR: could not generate line color";
+
+    if(lineColor == undefined){
+        //get random colors for the lines
+        do {
+            lineColor = await randomColor(bgColor, captcha.fillStyle, bgColorDiff);
+        } while (lineColor == captcha.fillStyle);
+        if(lineColor != captcha.fillStyle) captcha.strokeStyle = lineColor
+        else return "ERROR: could not generate line color";
+    }else{
+        captcha.strokeStyle = lineColor;
+    }
 
     //start drawing lines
     captcha.lineWidth = randomInt(2,4);
@@ -63,12 +72,17 @@ async function captcha({length = 5, randomBgColor = "#"+randomInt(0,16777215).to
         charColor = captcha.fillStyle;
         captcha.textAlign = 'center';
         
-        //get random colors for the characters
-        do {
-            charColor = await randomColor(randomBgColor, captcha.fillStyle, bgColorDiff);
-        } while (charColor == captcha.fillStyle);
-        if(charColor != captcha.fillStyle) captcha.fillStyle = charColor
-        else return "ERROR: could not generate char color";
+        if(characterColor == undefined){ //if no color is provided, get a random color
+            //get random colors for the characters
+            do {
+                charColor = await randomColor(bgColor, captcha.fillStyle, bgColorDiff);
+            } while (charColor == captcha.fillStyle);
+            if(charColor != captcha.fillStyle) captcha.fillStyle = charColor
+            else return "ERROR: could not generate char color";
+        }else{
+            captcha.fillStyle = characterColor;
+        }
+        
         
         //add a random rotation to the characters
         let rotation = randomInt(-3,3);
@@ -98,7 +112,13 @@ async function captcha({length = 5, randomBgColor = "#"+randomInt(0,16777215).to
         fontsize = randomInt(decoys.sizeMin,decoys.sizeMax);
         var buffer = fontsize*0.7;
         captcha.font = fontsize+"px Arial";
-        captcha.fillStyle = lineColor
+
+        //get color for the decoy
+        if (decoyColor == undefined){
+            captcha.fillStyle = lineColor;   
+        }else{
+            captcha.fillStyle = decoyColor;
+        }
 
         //get decoy characters and rotate them
         let char = characters.charAt(randomInt(0, characters.length - 1));
@@ -125,12 +145,12 @@ async function captcha({length = 5, randomBgColor = "#"+randomInt(0,16777215).to
     captcha.font = "15px Arial";
     captcha.fillText("made by Funty", 110, 25); //add credits
     let image = new Discord.MessageAttachment(canvas.toBuffer(), 'captcha.png'); //create the image
-    let returnValue = [solution, image]; //return the solution and the image
-    return returnValue;
+    //let returnValue = [solution, image]; //return the solution and the image
+    return {solution: solution, image: image};
 }
 
 //function to get a random color
-function randomColor(randomBgColor, bgColor, bgColorDiff) {
+function randomColor(bgColor, bgColor, bgColorDiff) {
     do {
         charColor = "#"+randomInt(0,16777215).toString(16);
 
@@ -138,11 +158,11 @@ function randomColor(randomBgColor, bgColor, bgColorDiff) {
         charColorG = parseInt(charColor.substring(3,5),16);
         charColorB = parseInt(charColor.substring(5,7),16);
 
-        randomBgColorR = parseInt(randomBgColor.substring(1,3),16);
-        randomBgColorG = parseInt(randomBgColor.substring(3,5),16);
-        randomBgColorB = parseInt(randomBgColor.substring(5,7),16);
+        bgColorR = parseInt(bgColor.substring(1,3),16);
+        bgColorG = parseInt(bgColor.substring(3,5),16);
+        bgColorB = parseInt(bgColor.substring(5,7),16);
 
-        if(bgColorDiff.R > Math.abs(randomBgColorR - charColorR) || bgColorDiff.G > Math.abs(randomBgColorG - charColorG) || bgColorDiff.B > Math.abs(randomBgColorB - charColorB)){
+        if(bgColorDiff.R > Math.abs(bgColorR - charColorR) || bgColorDiff.G > Math.abs(bgColorG - charColorG) || bgColorDiff.B > Math.abs(bgColorB - charColorB)){
             charColor = bgColor;
         }
 

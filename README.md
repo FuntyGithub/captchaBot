@@ -11,15 +11,94 @@ install all used node modules with ``npm i``
 ALL arguments are optional but all arguments can personalize your captcha!    
   
 Example:  
-``captcha({length = 5, randomBgColor = "#"+randomInt(0,16777215).toString(16), bgColorDiff = {R : 20, G : 20, B : 20}, decoys = {amount : 40, sizeMin: 10, sizeMax: 25}, characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()'})``
+``captcha({length = 5, randomBgColor = "#"+randomInt(0,16777215).toString(16), bgColorDiff = {R : 20, G : 20, B : 20}, decoys = {amount : 40, sizeMin: 10, sizeMax: 25}, characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()', randomCharOrder: true})``
 
-Name  | Description  | Default (value if you don´t give any)
-------------- | ------------- | -------------
-length  | how many characters the captcha should have | 5
-randomBgColor  | Background color of the captcha | it´s generate a random if you don't specify any(could be bad for people with colorblindness)
-bgColorDiff  | the minimum difference between R(red), G(green) and B(blue) in the colorcode from the characters | {R : 20, G : 20, B : 20}
-decoys  | settings for the decoy characters -> amount = amount of decoys sizeMin/sizeMax = minimum/maximum of the character size | {amount : 40, sizeMin: 10, sizeMax: 25}
-characters  | the characters that the image is allowed to include | 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()'
+[captcha function arguments:](#captcha-function-arguments)
+  * [length](#length)
+  * [bgColor](#bgColor)
+  * [bgColorDiff](#bgColorDiff)
+  * [decoys](#decoys)
+  * [characters](#characters)
+  * [randomCharOrder](#randomCharOrder)
+  * [imageSize](#imageSize)
+  * [characterColor](#characterColor)
+  * [lineColor](#lineColor)
+  * [decoyColor](#decoyColor)
+
+### <ins>length</ins>
+**Name:** length  
+**Type:** Number  
+**Default:** ``5``  
+**Description:** how many characters the captcha should have  
+
+### <ins>bgColor</ins>
+**Name:** bgColor  
+**Type:** String  
+**Default:** random (could be bad for people with colorblindness)  
+**Description:** Background color of the captcha  
+
+### <ins>bgColorDiff</ins>
+**Name:** bgColorDiff  
+**Default:** ``{R : 20, G : 20, B : 20}``  
+
+| Sub-Option | Type   | Description                                                                  | Default (value if you don't give any) |
+| ---------- | ------ | ---------------------------------------------------------------------------- | ------------------------------------- |
+| R          | Number | the minimum difference between R(red) in the colorcode from the characters   | 20                                    |
+| G          | Number | the minimum difference between G(green) in the colorcode from the characters | 20                                    |
+| B          | Number | the minimum difference between B(blue) in the colorcode from the characters  | 20                                    |
+
+### <ins>decoys</ins>
+**Name:** decoys  
+**Default:** ``{amount : 40, sizeMin: 10, sizeMax: 25}``  
+
+| Sub-Option | Type   | Description                                             | Default (value if you don't give any) |
+| ---------- | ------ | ------------------------------------------------------- | ------------------------------------- |
+| amount     | Number | the amount of decoys to add                             | 40                                    |
+| sizeMin    | Number | the minimum of the random character size for the decoys | 10                                    |
+| sizeMax    | Number | the maximum of the random character size for the decoys | 10                                    |
+
+### <ins>characters</ins>
+**Name:** characters  
+**Type:** String  
+**Default:** ``'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()'``   
+**Description:** the characters that the image is allowed to include  
+
+### <ins>randomCharOrder</ins>
+**Name:** randomCharOrder  
+**Type:** Boolean  
+**Default:** ``true``  
+**Description:** if it should pick random characters out of the provided string. If you want a custom, non-random string, the length should be equal to the string argument lenght  
+
+### <ins>imageSize</ins>
+**Name:** imageSize  
+**Default:** ``{xMin: 600, xMax: 700, yMin: 400, yMax:500}``  
+
+| Sub-Option | Type   | Description                                                     | Default (value if you don't give any) |
+| ---------- | ------ | --------------------------------------------------------------- | ------------------------------------- |
+| xMin       | Number | The minimum value for the random image size at the x coordinate | 600                                   |
+| xMax       | Number | The maximum value for the random image size at the x coordinate | 700                                   |
+| yMin       | Number | The minimum value for the random image size at the y coordinate | 400                                   |
+| yMax       | Number | The maximum value for the random image size at the y coordinate | 500                                   |
+
+_if it should not be random just let minimum and maximum` be the same value_
+
+### <ins>characterColor</ins>
+**Name:** characterColor  
+**Type:** String  
+**Default:** ``undefined``  
+**Description:** sets the character color for each character to the specified hex code. Use undefined to use a randomly generated color for each character
+
+### <ins>lineColor</ins>
+**Name:** lineColor  
+**Type:** String  
+**Default:** ``undefined``  
+**Description:** sets the line color for to the specified hex code. Use undefined to use a randomly generated color  
+
+### <ins>decoyColor</ins>
+**Name:** decoyColor  
+**Type:** String  
+**Default:** ``undefined``  
+**Description:** sets the decoy color for to the specified hex code. Use undefined to use the [lineColor](#lineColor)  
 
 ## captcha function errors
 So far, only a text is returned for simple errors. For some errors also nothing or a wrong image is returned. To improve it is on my ToDo list!
