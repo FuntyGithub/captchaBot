@@ -2,7 +2,7 @@ const Discord = require('discord.js');
 const { createCanvas } = require('canvas')
 const client = new Discord.Client({intents: 4609});
 
-client.login("YOUR BOT TOKEN HERE"); // your client token
+client.login("YOUR TOKEN HERE"); // your client token
 
 client.on('messageCreate', async(message) => {
     if(message.author.bot) return; //Don´t answer to bots!
@@ -58,7 +58,6 @@ async function captcha({length = 5, randomBgColor = "#"+randomInt(0,16777215).to
 
         let char = solution.charAt(i);
         fontsize = randomInt(110-(length*9)-20,110-(length*9));
-        console.log("fontsize: " + fontsize);
         var buffer = fontsize*0.7;
         captcha.font = fontsize+"px Arial";
         charColor = captcha.fillStyle;
@@ -122,7 +121,9 @@ async function captcha({length = 5, randomBgColor = "#"+randomInt(0,16777215).to
         captcha.rotate(-rotation*Math.PI/180); //rotate back
     }
     
-
+    captcha.textAlign = 'end';
+    captcha.font = "15px Arial";
+    captcha.fillText("made by Funty", 110, 25); //add credits
     let image = new Discord.MessageAttachment(canvas.toBuffer(), 'captcha.png'); //create the image
     let returnValue = [solution, image]; //return the solution and the image
     return returnValue;
