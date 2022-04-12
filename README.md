@@ -19,3 +19,6 @@ randomBgColor  | Background color of the captcha | it´s generate a random if yo
 bgColorDiff  | the minimum difference between R(red), G(green) and B(blue) in the colorcode from the characters | {R : 20, G : 20, B : 20}
 decoys  | settings for the decoy characters -> amount = amount of decoys sizeMin/sizeMax = minimum/maximum of the character size | {amount : 40, sizeMin: 10, sizeMax: 25}
 characters  | the characters that the image is allowed to include | 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()'
+
+## captcha function errors
+So far, only a text is returned for simple errors. For some errors also nothing or a wrong image is returned. To improve it is on my ToDo list!
