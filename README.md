@@ -1,6 +1,7 @@
 # Captcha Bot
 This bot is a example for using canvas to make captchas. Maybe I make a node module for this functions soon!
 
+Time: [![wakatime](https://wakatime.com/badge/user/6dcad35f-5e14-44f1-8e50-62062cfd7011/project/03effdb2-1415-4f41-8a8c-5463d1abdf40.svg)](https://wakatime.com/@Funty) *yes i'm new to canvas*  
 Language: JavaScript
 
 ### Before you start:
