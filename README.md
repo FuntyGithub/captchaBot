@@ -14,13 +14,13 @@ ALL arguments are optional but all arguments can personalize your captcha!
 Example:  
 ```js
 const captcha = await createCaptcha({
-  length: 6,
-  bgColor: '#00000000',
+  length: 5,
+  bgColor: "#00000000",
   bgColorDiff: {R: 20, G: 20, B: 20},
   decoys: {amount: 40, sizeMin: 10, sizeMax: 25},
   randomCharOrder: true,
-  characters: 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()',
-  imageSize: {xMin: 600, xMax: 700, yMin: 400, yMax:500},
+  characters: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()",
+  imageSize: {xMin: 600, xMax: 700, yMin: 400, yMax: 500},
   characterColor: "#FF0000",
   lineColor: "#00FF00",
   decoyColor: "#0000FF"
@@ -40,30 +40,32 @@ const captcha = await createCaptcha({
   * [decoyColor](#decoyColor)
 
 ### <ins>length</ins>
-**Name:** length  
-**Type:** Number  
-**Default:** ``5``  
-**Description:** how many characters the captcha should have  
+**Name:** length
+**Type:** Number
+**Default:** ``5``
+**Description:** how many characters the captcha should have
 
 ### <ins>bgColor</ins>
-**Name:** bgColor  
-**Type:** String  
-**Default:** random (could be bad for people with colorblindness)  
-**Description:** Background color of the captcha  
+**Name:** bgColor
+**Type:** String
+**Default:** random (could be bad for people with colorblindness)
+**Description:** Background color of the captcha
 
 ### <ins>bgColorDiff</ins>
-**Name:** bgColorDiff  
-**Default:** ``{R : 20, G : 20, B : 20}``  
+**Name:** bgColorDiff
+**Type:** Object
+**Default:** ``{R: 20, G: 20, B: 20}``
 
 | Sub-Option | Type   | Description                                                                  | Default (value if you don't give any) |
 | ---------- | ------ | ---------------------------------------------------------------------------- | ------------------------------------- |
-| R          | Number | the minimum difference between R(red) in the colorcode from the characters   | 20                                    |
-| G          | Number | the minimum difference between G(green) in the colorcode from the characters | 20                                    |
-| B          | Number | the minimum difference between B(blue) in the colorcode from the characters  | 20                                    |
+| R          | Number | the minimum difference between **R**ed in the colorcode of the characters   | 20                                    |
+| G          | Number | the minimum difference between **G**reen in the colorcode of the characters | 20                                    |
+| B          | Number | the minimum difference between **B**lue in the colorcode of the characters  | 20                                    |
 
 ### <ins>decoys</ins>
-**Name:** decoys  
-**Default:** ``{amount : 40, sizeMin: 10, sizeMax: 25}``  
+**Name:** decoys
+**Type:** Object
+**Default:** ``{amount: 40, sizeMin: 10, sizeMax: 25}``
 
 | Sub-Option | Type   | Description                                             | Default (value if you don't give any) |
 | ---------- | ------ | ------------------------------------------------------- | ------------------------------------- |
@@ -72,19 +74,20 @@ const captcha = await createCaptcha({
 | sizeMax    | Number | the maximum of the random character size for the decoys | 10                                    |
 
 ### <ins>characters</ins>
-**Name:** characters  
-**Type:** String  
-**Default:** ``'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()'``   
-**Description:** the characters that the image is allowed to include  
+**Name:** characters
+**Type:** String
+**Default:** ``'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()'``
+**Description:** the characters that the image is allowed to include
 
 ### <ins>randomCharOrder</ins>
-**Name:** randomCharOrder  
-**Type:** Boolean  
-**Default:** ``true``  
-**Description:** if it should pick random characters out of the provided string. If you want a custom, non-random string, the length should be equal to the string argument lenght  
+**Name:** randomCharOrder
+**Type:** Boolean
+**Default:** ``true``
+**Description:** if it should pick random characters out of the provided string. If you want a custom, non-random string, the length should be equal to the string argument length
 
 ### <ins>imageSize</ins>
-**Name:** imageSize  
+**Name:** imageSize
+**Type:** Object
 **Default:** ``{xMin: 600, xMax: 700, yMin: 400, yMax:500}``  
 
 | Sub-Option | Type   | Description                                                     | Default (value if you don't give any) |
@@ -97,22 +100,22 @@ const captcha = await createCaptcha({
 _if you don't want it to be random, just let minimum and maximum be the same value_
 
 ### <ins>characterColor</ins>
-**Name:** characterColor  
-**Type:** String  
-**Default:** ``undefined``  
+**Name:** characterColor
+**Type:** String
+**Default:** ``undefined``
 **Description:** sets the character color for each character to the specified hex code. Use undefined to use a randomly generated color for each character
 
 ### <ins>lineColor</ins>
-**Name:** lineColor  
-**Type:** String  
-**Default:** ``undefined``  
-**Description:** sets the line color for to the specified hex code. Use undefined to use a randomly generated color  
+**Name:** lineColor
+**Type:** String
+**Default:** ``undefined``
+**Description:** sets the line color for to the specified hex code. Use undefined to use a randomly generated color
 
 ### <ins>decoyColor</ins>
-**Name:** decoyColor  
-**Type:** String  
-**Default:** ``undefined``  
-**Description:** sets the decoy color for to the specified hex code. Use undefined to use the [lineColor](#lineColor)  
+**Name:** decoyColor
+**Type:** String
+**Default:** ``undefined``
+**Description:** sets the decoy color for to the specified hex code. Use undefined to use the [lineColor](#lineColor)
 
 ## captcha function errors
 So far, only a text is returned for simple errors. For some errors also nothing or a wrong image is returned. To improve it is on my ToDo list!
