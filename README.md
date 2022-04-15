@@ -1,8 +1,9 @@
 # Captcha Bot
 This bot is a example for using canvas to make captchas. Maybe I make a node module for this functions soon!
+![](https://cdn.discordapp.com/attachments/679392991533858858/964546316585824346/captcha.png)
 
 Time: [![wakatime](https://wakatime.com/badge/user/6dcad35f-5e14-44f1-8e50-62062cfd7011/project/03effdb2-1415-4f41-8a8c-5463d1abdf40.svg)](https://wakatime.com/@Funty) *yes i'm new to canvas*  
-Language: JavaScript
+Language: JavaScript/Node.js
 
 ### Before you start:
 install all used node modules with ``npm i``
@@ -11,7 +12,20 @@ install all used node modules with ``npm i``
 ALL arguments are optional but all arguments can personalize your captcha!    
   
 Example:  
-``createCaptcha({length: 6, bgColor: '#000000', bgColorDiff: {R: 20, G: 20, B: 20}, decoys: {amount : 40, sizeMin: 10, sizeMax: 25}, randomCharOrder: true, characters: 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()', imageSize: {xMin: 600, xMax: 700, yMin: 400, yMax:500}, characterColor: "#FF0000", lineColor: "#00FF00", decoyColor: "#0000FF"});``
+```js
+const captcha = await createCaptcha({
+  length: 6,
+  bgColor: '#00000000',
+  bgColorDiff: {R: 20, G: 20, B: 20},
+  decoys: {amount: 40, sizeMin: 10, sizeMax: 25},
+  randomCharOrder: true,
+  characters: 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()',
+  imageSize: {xMin: 600, xMax: 700, yMin: 400, yMax:500},
+  characterColor: "#FF0000",
+  lineColor: "#00FF00",
+  decoyColor: "#0000FF"
+});
+```
 
 [captcha function arguments:](#captcha-function-arguments)
   * [length](#length)
