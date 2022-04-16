@@ -9,7 +9,7 @@ Language: JavaScript/Node.js
 Install the used node modules with `npm i canvas discord.js`
 
 ## captcha function arguments:
-ALL arguments are optional but they arguments can personalize your captcha!<br><br>
+ALL arguments are optional but they can personalize the result captcha!<br><br>
 
 Example:  
 ```js
