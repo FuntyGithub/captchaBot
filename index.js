@@ -5,18 +5,17 @@ const client = new Discord.Client({intents: 4609});
 client.login("YOUR TOKEN HERE"); // your client token
 
 client.on('messageCreate', async(message) => {
-    if(message.author.bot) return; //Don´t answer to bots!
+    if(message.author.bot) return; // Don´t answer to bots!
 
-    //example command
+    // example command
     if (message.content.startsWith("!captcha")) {
-
-        //get captcha data
+        // get captcha data
         let captcha = await createCaptcha({length: 6, bgColor: '#000000', bgColorDiff: {R: 20, G: 20, B: 20}, decoys: {amount: 40, sizeMin: 10, sizeMax: 25}, randomCharOrder: true, characters: 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()', imageSize: {xMin: 600, xMax: 700, yMin: 400, yMax:500}, characterColor: "#FF0000", lineColor: "#00FF00", decoyColor: "#0000FF"}); // Read README.md for more info
-        let solution = captcha.solution //the solution is the first element of the array
-        let image = captcha.image //the captcha image is the second element of the array
+        let solution = captcha.solution // the solution is the first element of the array
+        let image = captcha.image // the captcha image is the second element of the array
 
 
-        //send captcha in the channel
+        // send captcha in the channel
         message.channel.send({files: [image]})
         message.channel.send("||``" + solution + "``||")
     }

@@ -1,5 +1,5 @@
 # Captcha Bot
-This bot is a example for using canvas to make captchas. Maybe I make a node module for this functions soon!
+This bot is a example for using canvas to make captchas.
 ![](https://cdn.discordapp.com/attachments/679392991533858858/964546316585824346/captcha.png)
 
 Time: [![wakatime](https://wakatime.com/badge/user/6dcad35f-5e14-44f1-8e50-62062cfd7011/project/03effdb2-1415-4f41-8a8c-5463d1abdf40.svg)](https://wakatime.com/@Funty) *yes i'm new to canvas*  
@@ -125,5 +125,6 @@ const captcha = await createCaptcha({
 **Default:** `undefined`<br>
 **Description:** sets the decoy color for to the specified hex code. Use undefined to use the [lineColor](#lineColor)
 
-## captcha function errors
-So far, only a text is returned for simple errors. For some errors also nothing or a wrong image is returned. To improve it is on my ToDo list!
+## ToDo:
+* better error handling
+* maybe a npm module
