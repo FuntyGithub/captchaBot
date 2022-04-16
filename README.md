@@ -6,11 +6,11 @@ Time: [![wakatime](https://wakatime.com/badge/user/6dcad35f-5e14-44f1-8e50-62062
 Language: JavaScript/Node.js
 
 ### Before you start:
-install all used node modules with ``npm i``
+Install the used node modules with `npm i canvas discord.js`
 
 ## captcha function arguments:
-ALL arguments are optional but all arguments can personalize your captcha!    
-  
+ALL arguments are optional but they arguments can personalize your captcha!<br><br>
+
 Example:  
 ```js
 const captcha = await createCaptcha({
@@ -20,7 +20,9 @@ const captcha = await createCaptcha({
   decoys: {amount: 40, sizeMin: 10, sizeMax: 25},
   randomCharOrder: true,
   characters: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()",
-  imageSize: {xMin: 600, xMax: 700, yMin: 400, yMax: 500},
+  width: 600,
+  height: 400,
+  minCharacterSize: 30,
   characterColor: "#FF0000",
   lineColor: "#00FF00",
   decoyColor: "#0000FF"
@@ -34,7 +36,9 @@ const captcha = await createCaptcha({
   * [decoys](#decoys)
   * [characters](#characters)
   * [randomCharOrder](#randomCharOrder)
-  * [imageSize](#imageSize)
+  * [width](#width)
+  * [height](#height)
+  * [minCharacterSize](#minCharacterSize)
   * [characterColor](#characterColor)
   * [lineColor](#lineColor)
   * [decoyColor](#decoyColor)
@@ -85,19 +89,23 @@ const captcha = await createCaptcha({
 **Default:** ``true``<br>
 **Description:** if it should pick random characters out of the provided string. If you want a custom, non-random string, the length should be equal to the string argument length
 
-### <ins>imageSize</ins>
-**Name:** imageSize<br>
-**Type:** Object<br>
-**Default:** ``{xMin: 600, xMax: 700, yMin: 400, yMax: 500}``  
+### <ins>width</ins>
+**Name:** width<br>
+**Type:** Integer<br>
+**Default:** `600`<br>
+**Description:** sets the minimum size of the canvas in the X direction
 
-| Sub-Option | Type   | Description                                                     | Default (value if you don't give any) |
-| ---------- | ------ | --------------------------------------------------------------- | ------------------------------------- |
-| xMin       | Number | The minimum value for the random image size at the x coordinate | 600                                   |
-| xMax       | Number | The maximum value for the random image size at the x coordinate | 700                                   |
-| yMin       | Number | The minimum value for the random image size at the y coordinate | 400                                   |
-| yMax       | Number | The maximum value for the random image size at the y coordinate | 500                                   |
+### <ins>height</ins>
+**Name:** height<br>
+**Type:** Integer<br>
+**Default:** `400`<br>
+**Description:** sets the minimum size of the canvas in the Y direction
 
-_if you don't want it to be random, just let minimum and maximum be the same value_
+### <ins>minCharacterSize</ins>
+**Name:** minCharacterSize<br>
+**Type:** Integer<br>
+**Default:** `30`<br>
+**Description:** sets the minimum size of each character. Sometimes if the `length` value is too high the characters can be too small to read
 
 ### <ins>characterColor</ins>
 **Name:** characterColor<br>
