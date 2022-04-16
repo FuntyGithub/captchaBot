@@ -36,6 +36,7 @@ async function createCaptcha({length = 5, bgColor = "#" + randomInt(0, 16777215)
     const canvas = createCanvas(width, height)
     const captcha = canvas.getContext("2d")
 
+	// Background
     captcha.fillStyle = bgColor
     captcha.fillRect(0, 0, canvas.width, canvas.height)
     var width = canvas.width / length
@@ -82,9 +83,9 @@ async function createCaptcha({length = 5, bgColor = "#" + randomInt(0, 16777215)
 
         let y = randomInt(buffer, canvas.height - buffer * 2)
 
-        captcha.fillText(char, x, y) //draw the characters
-        captcha.rotate(-rotation * Math.PI / 180) //rotate back
-        captcha.lineTo(x, y) //draw the lines
+        captcha.fillText(char, x, y) // draw the characters
+        captcha.rotate(-rotation * Math.PI / 180) // rotate back
+        captcha.lineTo(x, y) // draw the lines
 
     }
     captcha.stroke()
@@ -117,7 +118,7 @@ async function createCaptcha({length = 5, bgColor = "#" + randomInt(0, 16777215)
         captcha.rotate(-rotation * Math.PI / 180)
     }
 
-    let image = new Discord.MessageAttachment(canvas.toBuffer(), "captcha.png")
+    const image = new Discord.MessageAttachment(canvas.toBuffer(), "captcha.png")
     return {solution, image}
 }
 
