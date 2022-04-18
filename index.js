@@ -23,7 +23,7 @@ client.on('messageCreate', async(message) => {
 })
 
 
-async function createCaptcha({length = 5, bgColor = "#" + randomInt(0, 16777215).toString(16), bgColorDiff = {R: 20, G: 20, B: 20}, decoys = {amount: 40, sizeMin: 10, sizeMax: 25}, randomCharOrder = true, characters = "ABCDEFGHJKLMNOPQRSTUVWXYZabefgjmnqrty123456789!#@%!@#$%^&*()", width = 600, height = 400, minCharacterSize = 30, characterColor = undefined, lineColor = undefined, decoyColor = undefined}) {
+async function createCaptcha({length = 5, bgColor = "#" + randomInt(0, 16777215).toString(16), bgColorDiff = {R: 20, G: 20, B: 20}, decoys = {amount: 40, sizeMin: 10, sizeMax: 25}, randomCharOrder = true, characters = "ABCDEFGHJKLMNOPQRSTUVWXYZabefgjmnqrty123456789!#@%!@#$%^&*()", width = 600, height = 400, minCharacterSize = 30, maxCharacterSize = undefined, characterColor = undefined, lineColor = undefined, decoyColor = undefined}) {
     var solution = ""
 
     if (randomCharOrder) { // check if the order of the provided characters should be random
@@ -51,12 +51,12 @@ async function createCaptcha({length = 5, bgColor = "#" + randomInt(0, 16777215)
 
     captcha.lineWidth = randomInt(2, 4)
     captcha.beginPath()
-    
 
     for (var i = 0; i < length; i++) {
         let char = solution.charAt(i)
 		let fontsize = randomInt(90 - (length * 8), 100 - (length * 8))
 		if (fontsize < minCharacterSize) fontsize = minCharacterSize
+		else if (fontsize > maxCharacterSize) fontsize = maxCharacterSize
         let buffer = fontsize * 0.7
         captcha.font = fontsize + "px Arial"
         charColor = captcha.fillStyle
@@ -78,16 +78,14 @@ async function createCaptcha({length = 5, bgColor = "#" + randomInt(0, 16777215)
         let xMin = width * i
         let xMax = width * i + width - (2 * buffer)
         if (i == 0) xMin = buffer
-        let x = randomInt(xMin, xMax)
 
+        let x = randomInt(xMin, xMax)
         let y = randomInt(buffer, canvas.height - buffer * 2)
 
         captcha.fillText(char, x, y) // draw the characters
         captcha.rotate(-rotation * Math.PI / 180) // rotate back
-        
-        if(i === 0) captcha.moveTo(x, y)
+		if (i == 0) captcha.moveTo(x, y)
         else captcha.lineTo(x, y) // draw the lines
-
     }
     captcha.stroke()
 
