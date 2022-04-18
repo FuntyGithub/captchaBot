@@ -51,7 +51,7 @@ async function createCaptcha({length = 5, bgColor = "#" + randomInt(0, 16777215)
 
     captcha.lineWidth = randomInt(2, 4)
     captcha.beginPath()
-    captcha.moveTo(0, 0)
+    
 
     for (var i = 0; i < length; i++) {
         let char = solution.charAt(i)
@@ -84,7 +84,9 @@ async function createCaptcha({length = 5, bgColor = "#" + randomInt(0, 16777215)
 
         captcha.fillText(char, x, y) // draw the characters
         captcha.rotate(-rotation * Math.PI / 180) // rotate back
-        captcha.lineTo(x, y) // draw the lines
+        
+        if(i === 0) captcha.moveTo(x, y)
+        else captcha.lineTo(x, y) // draw the lines
 
     }
     captcha.stroke()
