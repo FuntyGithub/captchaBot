@@ -23,6 +23,7 @@ const captcha = await createCaptcha({
   width: 600,
   height: 400,
   minCharacterSize: 30,
+  maxCharacterSize: 100,
   characterColor: "#FF0000",
   lineColor: "#00FF00",
   decoyColor: "#0000FF"
@@ -39,6 +40,7 @@ const captcha = await createCaptcha({
   * [width](#width)
   * [height](#height)
   * [minCharacterSize](#minCharacterSize)
+  * [maxCharacterSize](#maxCharacterSize)
   * [characterColor](#characterColor)
   * [lineColor](#lineColor)
   * [decoyColor](#decoyColor)
@@ -107,6 +109,12 @@ const captcha = await createCaptcha({
 **Default:** `30`<br>
 **Description:** sets the minimum size of each character. Sometimes if the `length` value is too high the characters can be too small to read
 
+### <ins>maxCharacterSize</ins>
+**Name:** maxCharacterSize<br>
+**Type:** Integer<br>
+**Default:** `undefined`<br>
+**Description:** sets the maximum size of each character. Recommended to set if `length` is small.
+
 ### <ins>characterColor</ins>
 **Name:** characterColor<br>
 **Type:** String<br>
@@ -126,5 +134,4 @@ const captcha = await createCaptcha({
 **Description:** sets the decoy color for to the specified hex code. Use undefined to use the [lineColor](#lineColor)
 
 ## ToDo:
-* better error handling
 * maybe a npm module
