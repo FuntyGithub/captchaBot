@@ -84,8 +84,9 @@ async function createCaptcha({length = 5, bgColor = "#" + randomInt(0, 16777215)
 
         captcha.fillText(char, x, y) // draw the characters
         captcha.rotate(-rotation * Math.PI / 180) // rotate back
+
 		if (i == 0) captcha.moveTo(x, y)
-        else captcha.lineTo(x, y) // draw the lines
+		else captcha.lineTo(x, y) // draw the lines
     }
     captcha.stroke()
 
