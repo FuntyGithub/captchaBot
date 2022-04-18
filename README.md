@@ -134,4 +134,4 @@ const captcha = await createCaptcha({
 **Description:** sets the decoy color for to the specified hex code. Use undefined to use the [lineColor](#lineColor)
 
 ## ToDo:
-* maybe a npm module
+* ~maybe~ a npm module <-- WIP
